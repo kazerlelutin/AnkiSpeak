@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "bun run --hot --watch index.ts app.ts",
-    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile roadcast_layout --target bun"
+    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile anki-speak --target bun"
   },
   "devDependencies": {
     "@types/bun": "latest"
