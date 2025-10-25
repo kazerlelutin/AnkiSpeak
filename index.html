@@ -1,45 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <title>ANKI SPEAK</title>
-    <link rel="stylesheet" href="public/style.css" />
-    <link rel="icon" href="public/favicon.png" />
-    <meta name="description" content="Anki card generator with voice" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
 
-  <body class="app">
-    <header class="app-header">
-      <div class="version">v<span id="version"></span></div>
-      <a href="/" class="app-logo" data-internal>
-        <h1 class="font-md p-small">
-          <span class="text-primary">ANKI</span
-          ><span class="text-secondary">SPEAK</span>
-        </h1>
-      </a>
-    </header>
+<head>
+  <title>ANKI SPEAK</title>
+  <link rel="stylesheet" href="public/style.css" />
+  <link rel="icon" href="public/favicon.png" />
+  <meta name="description" content="Anki card generator with voice" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 
-    <main class="app-main"></main>
+<body class="app">
+  <header class="app-header">
+    <div class="version">v<span id="version"></span></div>
+    <a href="/" class="app-logo" data-internal>
+      <h1 class="font-md p-small">
+        <span class="text-primary">ANKI</span><span class="text-secondary">SPEAK</span>
+      </h1>
+    </a>
+  </header>
+    <main class="main"></main>
 
-    <footer class="app-footer">
-      <div class="crafter-controls" id="crafter-controls"></div>
-      <nav class="app-footer-nav">
-        <a href="/" data-internal aria-current="page" data-translate="home"></a>
-        <a href="/about" data-internal data-translate="about"></a>
-        <a
-          href="https://ko-fi.com/kazerlelutin"
-          target="_blank"
-          data-external
-          data-translate="follow-updates"
-        ></a>
-      </nav>
-    </footer>
+  <footer class="app-footer">
+    <div class="crafter-controls" id="crafter-controls"></div>
+    <nav class="app-footer-nav">
+      <a href="/" data-internal aria-current="page" data-translate="home"></a>
+      <a href="/about" data-internal data-translate="about"></a>
+      <a href="https://ko-fi.com/kazerlelutin" target="_blank" data-external data-translate="follow-updates"></a>
+    </nav>
+  </footer>
 
-    <!-- PAGES-->
-    <template id="home">
-      <div class="p-small">HERE, the content of the home page</div>
+  <!-- PAGES-->
+  <template id="home">
+    <div class="flex flex-col gap-small p-medium max-w-lg mx-auto">
+      <p class="text-center italic" data-translate="app-description"></p>
+      <a href="https://apps.ankiweb.net/" target="_blank" class="text-center" data-external data-translate="anki-link"></a>
+
+      <div class="flex gap-small justify-center">
+        <div class="flex gap-small items-center">
+          <select id="language-select">
+          </select>
+        </div>
+        <div class="flex gap-small items-center">
+          <input type="checkbox" id="classic-checkbox"  checked/>
+          <label for="classic-checkbox" data-translate="classic-checkbox"></label>
+        </div>
+        <div class="flex gap-small items-center">
+          <input type="checkbox" id="cloze-checkbox" />
+          <label for="cloze-checkbox" data-translate="cloze-checkbox"></label>
+        </div>
+    
+    
+      </div>
+      <input class="hidden" type="file" accept=".csv" id="dropzone-csv"></input>
+      <label class="dropzone" dropzone="copy" for="dropzone-csv" id="dropzone-csv-label" data-loading="false"
+        data-translate="dropzone-description"></label>
+      <p class="text-center text-sm text-muted" data-translate="csv-format"></p>
+      <div id="download-progress" class="download-progress hidden">
+        <div id="download-progress-bar" class="download-progress-bar"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="about-template">
+    <div class="p-medium max-w-lg mx-auto" id="about-container">
+      <h1 data-translate="about-title"></h1>
+      <div class="about-items-container" id="about-items-container"></div>
+    </div>
+  </template>
+
+
+     <!-- ABOUT -->
+     <template id="about-item-template">
+      <article class="about-item">
+        <h2 data-role="text"></h2>
+        <p data-role="text"></p>
+        <a href="data-role="link" target="_blank" rel="noopener noreferrer"></a>
+      </article>
     </template>
 
-    <script type="module" src="src/app.ts"></script>
-  </body>
+  <script type="module" src="src/app.ts"></script>
+</body>
+
 </html>

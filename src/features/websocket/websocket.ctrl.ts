@@ -31,7 +31,7 @@ const websocketCtrl: WebSocketCtrl = {
     socket.onmessage = (event: MessageEvent) => {
       try {
         const message = JSON.parse(event.data);
-        if (message.type.match(/message|action|handler/i) && message.room) {
+        if (message.type.match(/message|download-progress/i) && message.room) {
           const roomSubs = websocketStore.subscriptions.get(message.room);
           if (roomSubs) {
             roomSubs.forEach(callback => callback(message.data));

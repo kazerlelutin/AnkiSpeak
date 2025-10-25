@@ -2,6 +2,8 @@ import type { Ctrl } from '@features/routes/routes.type';
 import { ABOUT_CONTAINER_ID, ABOUT_ITEM_TEMPLATE_ID, ABOUT_ITEMS_CONTAINER_ID, aboutContent, aboutTitle } from './about.const';
 import { activeFooterLink } from '@/src/utils/active-footer-link';
 import { t } from '@features/translate/translate';
+import { translateStore } from '@features/translate/translate.store';
+import { getLanguageFromLS } from '@features/translate/translate.utils';
 
 const aboutCtrl: Ctrl = {
   init() {
@@ -16,7 +18,6 @@ const aboutCtrl: Ctrl = {
     if (title) {
       title.textContent = t(aboutTitle);
     }
-
 
     const itemsContainer = container.querySelector("#" + ABOUT_ITEMS_CONTAINER_ID);
     if (!itemsContainer) {
@@ -59,6 +60,8 @@ const aboutCtrl: Ctrl = {
     }
 
     itemsContainer.appendChild(fragment);
+
+    translateStore.setCurrentLanguage(getLanguageFromLS() || 'fr');
 
   }
 }

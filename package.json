@@ -1,23 +1,28 @@
 {
   "name": "anki-speak",
   "version": "0.0.7",
-  "module": "index.ts",
-  "description": "Anki card generator with voice",
-  "type": "module",
-  "private": true,
   "author": {
     "name": "Benoist \"Kazerlelutin\" Bouteiller",
     "email": "bento@ik.me",
     "url": "https://kazerlelutin.space"
   },
-  "scripts": {
-    "dev": "bun run --hot --watch index.ts app.ts",
-    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile ankispeak --target bun"
+  "module": "index.ts",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "gtts": "^0.2.1"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  }
+  },
+  "description": "Anki card generator with voice",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot --watch index.ts app.ts",
+    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile ankispeak --target bun"
+  },
+  "type": "module"
 }

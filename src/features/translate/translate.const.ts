@@ -9,26 +9,6 @@ export const UI: UiTranslation = {
     "en": "Home",
     "ko": "홈"
   },
-  "add": {
-    "fr": "Ajouter",
-    "en": "Add",
-    "ko": "추가"
-  },
-  "delete": {
-    "fr": "Supprimer",
-    "en": "Delete",
-    "ko": "삭제"
-  },
-  "exchange": {
-    "fr": "Échanger",
-    "en": "Exchange",
-    "ko": "교환"
-  },
-  "select": {
-    "fr": "Sélectionner",
-    "en": "Select",
-    "ko": "선택"
-  },
   "about": {
     "fr": "À propos",
     "en": "About",
@@ -39,161 +19,39 @@ export const UI: UiTranslation = {
     "en": "Cancel",
     "ko": "취소"
   },
-  "change_ingredient_warning": {
-    "fr": "Changer cet ingrédient va modifier automatiquement tous les ingrédients de votre recette.",
-    "en": "Changing this ingredient will automatically modify all ingredients in your recipe.",
-    "ko": "이 재료를 변경하면 레시피의 모든 재료가 자동으로 수정됩니다."
-  },
-  "export": {
-    "fr": "Export",
-    "en": "Export",
-    "ko": "내보내기"
-  },
-  "export-description": {
-    "fr": "Exportez votre recette personnalisée dans différents formats",
-    "en": "Export your customized recipe in different formats",
-    "ko": "맞춤형 레시피를 다양한 형식으로 내보내기"
-  },
-  "export-md": {
-    "fr": "Export Markdown",
-    "en": "Markdown Export",
-    "ko": "마크다운 내보내기"
-  },
-  "export-json": {
-    "fr": "Export JSON",
-    "en": "JSON Export",
-    "ko": "JSON 내보내기"
-  },
-  "ingredients": {
-    "fr": "Ingrédients",
-    "en": "Ingredients",
-    "ko": "재료"
-  },
-  "steps": {
-    "fr": "Étapes",
-    "en": "Steps",
-    "ko": "단계"
-  },
-  "description": {
-    "fr": "Description",
-    "en": "Description",
-    "ko": "설명"
-  },
-  "tips": {
-    "fr": "Conseils",
-    "en": "Tips",
-    "ko": "팁"
-  },
   "follow-updates": {
     "fr": "Suivre les mises à jour",
     "en": "Follow updates",
     "ko": "업데이트 팔로우"
   },
-
-  "quantity-selector-value": {
-    "fr": "Pour {quantity} personnes",
-    "en": "For {quantity} people",
-    "ko": "{quantity} 명"
+  "app-description": {
+    "fr": "Anki Speak génère automatiquement des cartes Anki avec voix. Crée des cartes classiques ou des textes à trous (chaque mot devient une carte avec trou automatique). Exporte un ZIP contenant les médias audio et le fichier CSV à importer dans Anki.",
+    "en": "Anki Speak automatically generates Anki cards with voice. Creates classic cards or cloze deletion cards (each word becomes a card with automatic gap). Exports a ZIP containing audio media and CSV file to import into Anki.",
+    "ko": "Anki Speak는 음성과 함께 Anki 카드를 자동으로 생성합니다. 클래식 카드나 빈칸 채우기 카드(각 단어가 자동 빈칸이 있는 카드가 됨)를 만듭니다. Anki에 가져올 오디오 미디어와 CSV 파일이 포함된 ZIP을 내보냅니다."
   },
-  "quantity-selector-value-plural": {
-    "fr": "Pour {quantity} personnes",
-    "en": "For {quantity} people",
-    "ko": "{quantity} 명"
+  "cloze-checkbox": {
+    "fr": "Textes à trous",
+    "en": "Cloze deletion",
+    "ko": "빈칸 채우기"
   },
-  "ingredients-for": {
-    "fr": "Ingrédients pour {quantity}",
-    "en": "Ingredients for {quantity}",
-    "ko": "{quantity}인분 재료"
+  "classic-checkbox": {
+    "fr": "Cartes classiques",
+    "en": "Classic cards",
+    "ko": "클래식 카드"
   },
-  "piece": {
-    "fr": "pièce",
-    "en": "piece",
-    "ko": "개"
+  "dropzone-description": {
+    "fr": "Glissez et déposez votre fichier CSV ici ou cliquez pour charger, ou Ctrl+V pour coller",
+    "en": "Drag and drop your CSV file here or click to load, or Ctrl+V to paste",
+    "ko": "CSV 파일을 여기로 끌어다 놓거나 클릭하여 불러오세요, 또는 Ctrl+V로 붙여넣기"
   },
-  "piece-plural": {
-    "fr": "pièces",
-    "en": "pieces",
-    "ko": "개"
+  "csv-format": {
+    "fr": "Format CSV : langue source, langue cible, tags. Séparateur : , ou ;",
+    "en": "CSV format: source language, target language, tags. Separator: , or ;",
+    "ko": "CSV 형식: 소스 언어, 대상 언어, 태그. 구분자: , 또는 ;"
   },
-  "g": {
-    "fr": "g",
-    "en": "g",
-    "ko": "g"
-  },
-  "g-plural": {
-    "fr": "g",
-    "en": "g",
-    "ko": "g"
-  },
-  "ml": {
-    "fr": "ml",
-    "en": "ml",
-    "ko": "ml"
-  },
-  "ml-plural": {
-    "fr": "ml",
-    "en": "ml",
-    "ko": "ml"
-  },
-  "cl": {
-    "fr": "cl",
-    "en": "cl",
-    "ko": "cl"
-  },
-  "cl-plural": {
-    "fr": "cl",
-    "en": "cl",
-    "ko": "cl"
-  },
-  "l": {
-    "fr": "l",
-    "en": "l",
-    "ko": "l"
-  },
-  "l-plural": {
-    "fr": "l",
-    "en": "l",
-    "ko": "l"
-  },
-  "tsp": {
-    "fr": "cuillère à café",
-    "en": "teaspoon",
-    "ko": "작은 숟가락"
-  },
-  "tsp-plural": {
-    "fr": "cuillères à café",
-    "en": "teaspoons",
-    "ko": "작은 숟가락"
-  },
-
-  "tbsp": {
-    "fr": "cuillère à soupe",
-    "en": "tablespoon",
-    "ko": "큰 숟가락"
-  },
-  "tbsp-plural": {
-    "fr": "cuillères à soupe",
-    "en": "tablespoons",
-    "ko": "큰 숟가락"
-  },
-  "sheet": {
-    "fr": "feuille",
-    "en": "sheet",
-    "ko": "장"
-  },
-  "sheet-plural": {
-    "fr": "feuilles",
-    "en": "sheets",
-    "ko": "장"
-  },
-  "unit": {
-    "fr": "unité",
-    "en": "unit",
-    "ko": "개"
-  },
-  "unit-plural": {
-    "fr": "unités",
-    "en": "units",
-    "ko": "개"
+  "anki-link": {
+    "fr": "Site officiel d'Anki",
+    "en": "Official Anki site",
+    "ko": "Anki 공식 사이트"
   }
 } as const;
