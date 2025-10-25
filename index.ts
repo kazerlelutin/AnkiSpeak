@@ -3,6 +3,8 @@ import index from "./index.html";
 
 
 export const server = serve({
+  port: 3000,
+  hostname: "0.0.0.0",
   websocket: {
     message: (ws, message) => {
       try {
@@ -33,7 +35,7 @@ export const server = serve({
 
     return new Response("Not Found", { status: 404 });
   },
-  development: true,
+  development: false,
 });
 
 console.log(`Listening on ${server.url}`);

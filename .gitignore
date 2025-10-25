@@ -11,6 +11,8 @@ dist
 *.exe 
 *.db
 
+public/hydrate.mjs
+
 # code coverage
 coverage
 *.lcov
