@@ -4,7 +4,6 @@ import index from "./index.html";
 
 export const server = serve({
   port: 3000,
-  hostname: "0.0.0.0",
   websocket: {
     message: (ws, message) => {
       try {

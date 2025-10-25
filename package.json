@@ -1,6 +1,6 @@
 {
   "name": "anki-speak",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "module": "index.ts",
   "description": "Anki card generator with voice",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "bun run --hot --watch index.ts app.ts",
-    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile anki-speak --target bun"
+    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile ankispeak --target bun"
   },
   "devDependencies": {
     "@types/bun": "latest"
