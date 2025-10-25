@@ -1,0 +1,279 @@
+@layer base, components, utilities, pages;
+
+@layer base {
+  :root {
+    /* Palette Pixel Art Originale */
+    --color-pixel-1: #feffff;
+    --color-pixel-2: #a0a0a0;
+    --color-pixel-3: #525252;
+    --color-pixel-4: #bed6fd;
+    --color-pixel-5: #699efc;
+    --color-pixel-6: #1e4a9d;
+    --color-pixel-7: #011a51;
+    --color-pixel-8: #ccccff;
+    --color-pixel-9: #8987ff;
+    --color-pixel-10: #3837bc;
+    --color-pixel-11: #0f0f65;
+    --color-pixel-12: #ddc4ff;
+    --color-pixel-13: #ae76ff;
+    --color-pixel-14: #5828b8;
+    --color-pixel-15: #230663;
+    --color-pixel-16: #eac0f9;
+    --color-pixel-17: #ce6df1;
+    --color-pixel-18: #752194;
+    --color-pixel-19: #36034b;
+    --color-pixel-20: #f2c1df;
+    --color-pixel-21: #e070b2;
+    --color-pixel-22: #84235c;
+    --color-pixel-23: #400426;
+    --color-pixel-24: #f1c7c2;
+    --color-pixel-25: #de7c70;
+    --color-pixel-26: #822e24;
+    --color-pixel-27: #3f0904;
+    --color-pixel-28: #e8d0aa;
+    --color-pixel-29: #c8913e;
+    --color-pixel-30: #6f3f00;
+    --color-pixel-31: #321300;
+    --color-pixel-32: #d9da9d;
+    --color-pixel-33: #a6a725;
+    --color-pixel-34: #515200;
+    --color-pixel-35: #1f2000;
+    --color-pixel-36: #c9e29e;
+    --color-pixel-37: #81ba28;
+    --color-pixel-38: #316300;
+    --color-pixel-39: #0b2a00;
+    --color-pixel-40: #bce6ae;
+    --color-pixel-41: #63c446;
+    --color-pixel-42: #1a6b05;
+    --color-pixel-43: #002f00;
+    --color-pixel-44: #b4e5c7;
+    --color-pixel-45: #54c17d;
+    --color-pixel-46: #0e692e;
+    --color-pixel-47: #002e0a;
+    --color-pixel-48: #b5dfe4;
+    --color-pixel-49: #56b3c0;
+    --color-pixel-50: #105c68;
+    --color-pixel-51: #00262d;
+    --color-pixel-52: #a9a9a9;
+    --color-pixel-53: #3c3c3c;
+    --color-pixel-54: #000000;
+
+    --bg-primary: var(--color-pixel-28);
+    --text-primary: var(--color-pixel-54);
+    --text-secondary: var(--color-pixel-39);
+    --text-accent: var(--color-pixel-41);
+    --text-accent-secondary: var(--color-pixel-41);
+    --link-color: var(--color-pixel-31);
+    --link-hover: var(--color-pixel-30);
+    --success-color: var(--color-pixel-42);
+    --warning-color: var(--color-pixel-29);
+    --error-color: var(--color-pixel-26);
+
+    --font-size: 16px;
+    --font-size-small: calc(var(--font-size) * 0.8);
+    --font-size-medium: calc(var(--font-size) * 1.2);
+    --font-size-l: calc(var(--font-size) * 1.5);
+    --font-size-xl: calc(var(--font-size) * 2);
+    --font-size-2xl: calc(var(--font-size) * 3);
+    --font-size-3xl: calc(var(--font-size) * 4);
+
+    --pixel-icon-size: 32px;
+
+    --gap-small: 0.5rem;
+    --gap-medium: 1rem;
+    --gap-large: 2rem;
+
+    --padding-small: 0.5rem;
+    --padding-medium: 1rem;
+    --padding-large: 2rem;
+
+    --margin-small: 0.5rem;
+    --margin-medium: 1rem;
+    --margin-large: 2rem;
+
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100dvw;
+    height: 100dvh;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  /* ==== SCROLLBAR ==== */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-pixel-29);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-pixel-30);
+    border-radius: 4px;
+  }
+
+
+  /* ==== ELEMENTS ==== */
+
+  h1 {
+    color: var(--text-secondary);
+    font-size: var(--font-size-xl);
+    margin: 0;
+  }
+
+  h2 {
+    color: var(--text-secondary);
+    font-size: var(--font-size-l);
+    margin: 0;
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--link-hover);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  [data-disabled="true"] {
+    pointer-events: none;
+  }
+
+
+  .app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    overflow: hidden;
+  }
+
+  .app-header {
+    grid-area: header;
+  }
+
+  .main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    grid-area: main;
+  }
+
+  .main>* {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+  }
+
+  .app-footer-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-large);
+  }
+
+  .app-footer-nav a[aria-current="page"],
+  :disabled {
+    opacity: 0.75;
+    filter: grayscale(100%);
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  .app-footer {
+    grid-area: footer;
+    padding: var(--padding-medium);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-medium);
+  }
+
+}
+
+
+@layer components {
+  .version {
+    position: fixed;
+    top: var(--padding-small);
+    left: var(--padding-small);
+    font-size: var(--font-size-small);
+    color: var(--color-pixel-29);
+    z-index: 1000;
+    font-family: monospace;
+  }
+
+  .btn {
+    background-color: var(--color-pixel-10);
+    color: var(--color-pixel-1);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: 1px solid var(--color-pixel-14);
+  }
+
+  .app-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+@layer utilities {
+  .text-primary {
+    color: var(--color-pixel-19);
+  }
+
+  .text-secondary {
+    color: var(--color-pixel-18);
+  }
+
+  .font-md {
+    font-size: var(--font-size-md);
+  }
+
+  .p-small {
+    padding: var(--padding-small);
+  }
+
+}
+
+@layer pages {}

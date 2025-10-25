@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>ANKI SPEAK</title>
+    <link rel="stylesheet" href="public/style.css" />
+    <link rel="icon" href="public/favicon.png" />
+    <meta name="description" content="Anki card generator with voice" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="app">
+    <header class="app-header">
+      <div class="version">v<span id="version"></span></div>
+      <a href="/" class="app-logo" data-internal>
+        <h1 class="font-md p-small">
+          <span class="text-primary">ANKI</span
+          ><span class="text-secondary">SPEAK</span>
+        </h1>
+      </a>
+    </header>
+
+    <main class="app-main"></main>
+
+    <footer class="app-footer">
+      <div class="crafter-controls" id="crafter-controls"></div>
+      <nav class="app-footer-nav">
+        <a href="/" data-internal aria-current="page" data-translate="home"></a>
+        <a href="/about" data-internal data-translate="about"></a>
+        <a
+          href="https://ko-fi.com/kazerlelutin"
+          target="_blank"
+          data-external
+          data-translate="follow-updates"
+        ></a>
+      </nav>
+    </footer>
+
+    <!-- PAGES-->
+    <template id="home">
+      <div class="p-small">HERE, the content of the home page</div>
+    </template>
+
+    <script type="module" src="src/app.ts"></script>
+  </body>
+</html>
