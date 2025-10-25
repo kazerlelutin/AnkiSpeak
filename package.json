@@ -1,6 +1,6 @@
 {
   "name": "anki-speak",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "module": "index.ts",
   "description": "Anki card generator with voice",
   "type": "module",
