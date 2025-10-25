@@ -4,14 +4,13 @@ COPY . .
 RUN bun install --frozen-lockfile
 RUN bun run build
 
-FROM socialengine/nginx-spa:latest
+FROM docker.io/oven/bun:latest
+WORKDIR /app
 
-# Copier les fichiers statiques générés
-COPY --from=builder /app/public /app/
-# Copier le binaire compilé si nécessaire
 COPY --from=builder /app/anki-speak /app/anki-speak
-# Copier les templates et données
+COPY --from=builder /app/public /app/public
 COPY --from=builder /app/data /app/data
+COPY --from=builder /app/index.html /app/index.html
 
 EXPOSE 3000
 CMD ["/app/anki-speak"]
