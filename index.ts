@@ -1,4 +1,4 @@
-import { serve } from "bun";
+import { serve, type BunRequest } from "bun";
 import index from "./index.html";
 import { processCsv } from "./src/features/process-csv/process-csv.POST";
 import { downloadFile } from "./src/features/download-file/download-file.GET";
@@ -27,6 +27,12 @@ export const server = serve({
       GET: downloadFile,
     },
     "/*": index,
+    "/public/*": (req: BunRequest) => {
+      const url = new URL(req.url);
+      const path = url.pathname.replace("/public", "./public");
+      const file = Bun.file(path);
+      return new Response(file.stream(), { headers: { "Content-Type": "text/html" } });
+    },
   },
 
   async fetch(req) {

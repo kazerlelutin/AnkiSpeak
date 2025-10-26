@@ -337,7 +337,7 @@
 
   .dropzone {
     position: relative;
-    width: 100%;
+    width: calc(100% - var(--padding-medium) * 2);
     height: 100%;
     border: 1px dashed var(--color-pixel-29);
     color: var(--color-pixel-30);
@@ -346,6 +346,7 @@
     align-items: center;
     justify-content: center;
     height: 5em;
+    padding: var(--padding-medium);
     cursor: pointer;
     transition: all 0.3s ease;
   }
