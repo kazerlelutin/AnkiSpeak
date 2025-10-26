@@ -3,7 +3,8 @@ FROM docker.io/oven/bun:1.3 AS builder
 WORKDIR /app
 COPY . .
 RUN bun install --frozen-lockfile
-RUN bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --target browser && bun build --compile --target=bun-linux-x64 --minify=false ./index.ts --outfile ankispeak 
+RUN bun build ./src/app.ts --outfile ./public/hydrate.mjs && bun build --compile ./index.ts --outfile
+ankispeak
 
 FROM docker.io/oven/bun:1.3
 WORKDIR /app
