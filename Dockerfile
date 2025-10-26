@@ -11,7 +11,6 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/ankispeak /app/ankispeak
 COPY --from=builder /app/public /app/public
-COPY --from=builder /app/data /app/data
 COPY --from=builder /app/index.html /app/index.html
 
 EXPOSE 3000
