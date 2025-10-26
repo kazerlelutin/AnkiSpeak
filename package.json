@@ -1,6 +1,6 @@
 {
   "name": "anki-speak",
-  "version": "0.0.16",
+  "version": "0.0.13",
   "author": {
     "name": "Benoist \"Kazerlelutin\" Bouteiller",
     "email": "bento@ik.me",
@@ -22,8 +22,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --hot --watch index.ts app.ts",
-    "start": "bun run index.ts",
-    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build ./index.ts --outfile ankispeak --target bun"
+    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile ./index.ts --outfile ankispeak --target bun"
   },
   "type": "module"
 }
