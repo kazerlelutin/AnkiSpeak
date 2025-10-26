@@ -12,7 +12,6 @@ COPY --from=builder /app/index.ts /app/index.ts
 COPY --from=builder /app/src /app/src
 COPY --from=builder /app/public /app/public
 COPY --from=builder /app/index.html /app/index.html
-COPY --from=builder /app/data /app/data
 
 RUN mkdir -p /app/data/medias /app/data/csv
 
