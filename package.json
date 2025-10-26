@@ -8,8 +8,7 @@
   },
   "module": "index.ts",
   "dependencies": {
-    "adm-zip": "^0.5.16",
-    "gtts": "^0.2.1"
+    "adm-zip": "^0.5.16"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.7",
@@ -22,7 +21,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --hot --watch index.ts app.ts",
-    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile ./index.ts --outfile ankispeak --target bun"
+    "build": "bun build ./src/app.ts --outfile ./public/hydrate.mjs --format esm --minify --target browser && bun build --compile --minify ./index.ts --outfile ankispeak --target bun"
   },
   "type": "module"
 }

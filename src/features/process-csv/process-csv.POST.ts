@@ -1,6 +1,4 @@
 import { serve, type BunRequest } from "bun";
-// @ts-ignore
-import gTTS from 'gtts'
 import crypto from 'crypto'
 import { parseCsvLine } from "./process-csv.utils";
 import { LANG_SELECTOR_OPTIONS } from "@features/lang-selector/lang-selector.const";
@@ -8,6 +6,7 @@ import path from "path";
 import AdmZip from 'adm-zip'
 import { mkdir } from 'fs/promises'
 import { server } from "@/index";
+import { saveTTSFile } from "@/src/utils/tts";
 
 export async function processCsv(req: BunRequest) {
 
@@ -68,17 +67,13 @@ export async function processCsv(req: BunRequest) {
       .replace(/{{c\d+::/g, '')
       .replace(/}}/g, '')
 
-    const tts = new gTTS(sanitizedText.replace(/~/g, ' '), lang.split('-')[0])
-
     const cryptoSuffixe = crypto.randomBytes(16).toString('hex')
     const mediaName = `${new Date().getTime()}${cryptoSuffixe}.mp3`
-
     const pathToMedia = path.resolve('data', 'medias', mediaName)
 
     try {
-      await tts.save(pathToMedia)
 
-      await new Promise(resolve => setTimeout(resolve, 200))
+      await saveTTSFile(sanitizedText.replace(/~/g, ' '), lang.split('-')[0], pathToMedia)
 
       const file = Bun.file(pathToMedia)
       const exists = await file.exists()
