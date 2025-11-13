@@ -26,7 +26,6 @@ export const server = serve({
     "/api/download/:filename": {
       GET: downloadFile,
     },
-    "/*": index,
     "/public/*": async (req: BunRequest) => {
       const url = new URL(req.url);
       const path = url.pathname.replace("/public", "./public");
@@ -89,6 +88,7 @@ export const server = serve({
         }
       });
     },
+    "/*": index,
   },
 
   async fetch(req) {
@@ -100,6 +100,66 @@ export const server = serve({
         return undefined;
       }
       return new Response("WebSocket upgrade failed", { status: 400 });
+    }
+
+    // Gérer les fichiers statiques dans /public/ avant la route catch-all
+    if (url.pathname.startsWith("/public/")) {
+      const path = url.pathname.replace("/public", "./public");
+      const file = Bun.file(path);
+      const exists = await file.exists();
+
+      if (exists) {
+        const extension = path.split('.').pop()?.toLowerCase();
+        let contentType = "application/octet-stream";
+
+        switch (extension) {
+          case 'mjs':
+          case 'js':
+            contentType = "application/javascript";
+            break;
+          case 'css':
+            contentType = "text/css";
+            break;
+          case 'html':
+            contentType = "text/html";
+            break;
+          case 'ico':
+            contentType = "image/x-icon";
+            break;
+          case 'png':
+            contentType = "image/png";
+            break;
+          case 'jpg':
+          case 'jpeg':
+            contentType = "image/jpeg";
+            break;
+          case 'svg':
+            contentType = "image/svg+xml";
+            break;
+          case 'json':
+            contentType = "application/json";
+            break;
+          case 'woff':
+            contentType = "font/woff";
+            break;
+          case 'woff2':
+            contentType = "font/woff2";
+            break;
+          case 'ttf':
+            contentType = "font/ttf";
+            break;
+          case 'mp3':
+            contentType = "audio/mpeg";
+            break;
+        }
+
+        return new Response(file.stream(), {
+          headers: {
+            "Content-Type": contentType,
+            "Cache-Control": "public, max-age=31536000"
+          }
+        });
+      }
     }
 
     if (url.pathname.startsWith("/api/download/")) {
