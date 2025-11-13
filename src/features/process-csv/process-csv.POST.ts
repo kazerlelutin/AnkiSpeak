@@ -51,18 +51,20 @@ export async function processCsv(req: BunRequest) {
   for (const row of rows.slice(hasHeaders ? 1 : 0)) {
     processedRows++;
 
-    const [src = '', tgt = '', tags = ''] = parseCsvLine(row);
+    const [src = '', tgt = '', tags = '', additionalInfo = ''] = parseCsvLine(row);
 
     const source = src?.replace(/^["']|["']$/g, '').trim();
     const target = tgt?.replace(/^["']|["']$/g, '').trim();
     const tagsArray = tags?.replace(/^["']|["']$/g, '').trim()?.split(',')?.map((tag: string) => tag.trim());
+    const additionalInfoText = additionalInfo?.replace(/^["']|["']$/g, '').trim()
 
     if (!source || !target) {
       continue;
     }
 
+    const sanitizedRegex = /[!@#$%^&*()_=\/\\\+\\"<>;]/g
 
-    const sanitizedText = target.replace(/[!@#$%^&*()_=\/\\\+\\"<>;]/g, ' ')
+    const sanitizedText = target.replace(sanitizedRegex, ' ')
       .replace(/\.$/, '')
       .replace(/{{c\d+::/g, '')
       .replace(/}}/g, '')
@@ -89,15 +91,16 @@ export async function processCsv(req: BunRequest) {
 
       if (classic) {
         const recto = `${target}<hr /><br>[sound:${mediaName}]<br>`
-        csvFile.push(`"${recto}";"<br>${source}<br>";"${tagsArray?.join(', ') || ''}"`);
+        csvFile.push(`"${recto}";"<br>${source}<br>${additionalInfoText ? `<hr /><br>${additionalInfoText}<br>` : ''}";"${tagsArray?.join(', ') || ''}"`);
       }
 
       if (cloze) {
         const words = target.split(/\s+/).filter(word => word.length > 0);
         for (const word of words) {
           const clozeText = target.replace(word, `{{c1::${word}}}`);
-          const recto = `${clozeText}<hr /><br>[sound:${mediaName}]<br>`
-          csvFile.push(`"${recto}";"<br>${source}<br>";"${tagsArray?.join(', ') || ''}"`);
+          const recto = `${clozeText}<br><hr /><br>${source}<br>`
+          const verso = `<hr /><br>[sound:${mediaName}]<br> ${additionalInfoText ? `<hr /><br>${additionalInfoText}<br>` : ''}`
+          csvFile.push(`"${recto}";"${verso}";"${tagsArray?.join(', ') || ''}"`);
         }
       }
 

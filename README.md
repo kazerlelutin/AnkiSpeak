@@ -1,13 +1,13 @@
-# ROADCAST OVERLAY
+# AnkiSpeak
 
-Système de gestion d'overlays pour la diffusion en direct (streaming/broadcasting). Application web locale permettant de contrôler des éléments visuels en temps réel via une interface simple et intuitive.
+Générateur de cartes Anki avec synthèse vocale. Créez automatiquement des cartes Anki classiques ou des textes à trous avec des voix, puis exportez un ZIP contenant les médias audio et le fichier CSV à importer dans Anki.
 
 ## 🚀 Lancement
 
 ### Version exécutable (recommandée)
 
 ```bash
-./roadcast_layout.exe
+./ankispeak.exe
 ```
 
 ### Mode développement
@@ -22,264 +22,131 @@ bun run dev
 
 L'application sera accessible sur `http://localhost:3000`
 
-## 📁 Structure des overlays
+## 📋 Format CSV
 
-### Templates personnalisés
+### Structure du fichier CSV
 
-Placez vos overlays personnalisés dans le dossier `data/custom/`. Les templates dans `data/templates/` sont uniquement des exemples.
+Le fichier CSV doit contenir les colonnes suivantes (séparées par `,` ou `;`) :
 
-### Structure d'un overlay
+1. **Langue source** : Le texte dans votre langue maternelle
+2. **Langue cible** : Le texte à apprendre (avec la traduction)
+3. **Tags** (optionnel) : Tags pour organiser vos cartes dans Anki
+4. **Infos additionnelles** (optionnel) : Informations supplémentaires qui apparaîtront au verso de la carte (utile pour les textes à trous notamment)
 
-Chaque fichier HTML d'overlay doit contenir :
+### Exemple de fichier CSV
 
-```html
-<div
-  class="mon-overlay"
-  description="Description de l'overlay"
-  title="Nom de l'overlay"
-  script="start_mon_overlay, stop_mon_overlay, action_mon_overlay"
-  tag="tag1, tag2, tag3"
-  inputs="text:nom_input,number:valeur_input"
->
-  <!-- Contenu HTML de l'overlay -->
-</div>
-
-<script>
-  function start_mon_overlay() {
-    // Fonction de démarrage
-  }
-
-  function stop_mon_overlay() {
-    // Fonction d'arrêt
-  }
-
-  function action_mon_overlay() {
-    // Autres actions
-  }
-
-  // Exposer les fonctions globalement
-  globalThis.start_mon_overlay = start_mon_overlay
-  globalThis.stop_mon_overlay = stop_mon_overlay
-  globalThis.action_mon_overlay = action_mon_overlay
-</script>
-
-<style>
-  /* Styles CSS - Utilisez "em" pour garantir la compatibilité preview */
-  .mon-overlay {
-    font-size: 1em;
-    /* ... */
-  }
-</style>
+```csv
+Bonjour,Hello,tags:greetings,Formal greeting
+Comment allez-vous ?,How are you ?,tags:greetings,Polite question
 ```
 
-## 🎯 Bonnes pratiques
+Ou avec en-têtes :
 
-### Nommage des fonctions
-
-- **Utilisez un suffixe unique** pour vos fonctions (ex: `start_mon_overlay`, `stop_mon_overlay`)
-- L'interface n'affiche que la première partie avant le `_` pour éviter les conflits
-- Exemple : `start_breaking_news` → affiché comme "start" dans l'interface
-
-### Unités CSS
-
-- **Utilisez "em"** pour toutes les tailles afin de garantir la compatibilité avec la preview
-- Le système s'adapte automatiquement à différentes résolutions (base 1920x1080)
-
-### Métadonnées
-
-- `title` : Nom affiché dans l'interface
-- `description` : Description de l'overlay
-- `script` : Liste des fonctions disponibles (séparées par des virgules)
-- `tag` : Tags pour le filtrage (séparés par des virgules)
-- `inputs` : Liste des inputs disponibles (format: `type:nom_input`, séparés par des virgules)
-
-### Gestion des inputs
-
-Les inputs sont stockés dans des fichiers texte dans le dossier `data/inputs/` :
-
-- **Nom du fichier** : `nom_input.txt` (basé sur le nom dans les métadonnées)
-- **Contenu** : La valeur de l'input
-- **Modification** : Éditable manuellement ou via l'interface
-
-**Exemple :**
-
-```html
-inputs="text:titre_breaking_news,number:temps_countdown"
+```csv
+Source,Target,Tags,Additional Info
+Bonjour,Hello,tags:greetings,Formal greeting
+Comment allez-vous ?,How are you ?,tags:greetings,Polite question
 ```
 
-Créera les fichiers :
+### Format détaillé
 
-- `data/inputs/titre_breaking_news.txt`
-- `data/inputs/temps_countdown.txt`
+- **Séparateurs** : `,` (virgule) ou `;` (point-virgule)
+- **Guillemets** : Les valeurs peuvent être entourées de guillemets simples `'` ou doubles `"`
+- **En-têtes** : Optionnels, mais si présents, la première ligne sera ignorée si la 3ème colonne s'appelle "Tags"
 
-**Avantage :** Compatible avec OBS et navigateurs classiques (pas de localStorage partagé).
+### Infos additionnelles
 
-### Utilisation dans les scripts
+Les **infos additionnelles** (4ème colonne) sont particulièrement utiles pour :
 
-Pour récupérer les valeurs des inputs dans vos scripts JavaScript :
+- Les textes à trous : ajouter des explications, des exemples ou des notes contextuelles
+- Les cartes classiques : ajouter des informations complémentaires au verso
 
-```javascript
-async function start_mon_overlay() {
-  // Récupérer la valeur d'un input
-  const response = await fetch(`/api/actions/input/nom_input`)
-  const value = await response.text()
+Ces informations apparaîtront au verso de la carte, après la traduction et le fichier audio.
 
-  // Utiliser la valeur
-  const element = document.getElementById('mon-element')
-  element.textContent = value
-}
-```
+## 🎯 Types de cartes
 
-**Types d'inputs supportés :**
+### Cartes classiques
 
-- `text` : Texte libre
-- `number` : Valeur numérique
-- `color` : Sélecteur de couleur
-- `select` : Liste déroulante
-- `boolean` : Case à cocher
+Les cartes classiques affichent :
 
-## ⚙️ Paramètres globaux
+- **Recto** : La traduction (langue cible) + fichier audio
+- **Verso** : Le texte source (langue source) + infos additionnelles (si présentes)
 
-### Configuration de la taille de police et du nom de chaîne
+### Textes à trous (Cloze deletion)
 
-Les paramètres suivants sont disponibles sur la **page principale** (`/`) et la **page commands** (`/commands`) :
+Pour chaque mot de la traduction, une carte est créée avec :
 
-- **Taille de police** : Contrôle la taille globale des textes dans les overlays
-- **Nom de chaîne Twitch** : Définit le nom de votre chaîne pour les fonctionnalités liées à Twitch
+- **Recto** : Le texte avec un mot masqué (format Anki `{{c1::mot}}`) + le texte source
+- **Verso** : Le fichier audio + les infos additionnelles (si présentes)
 
-Ces paramètres sont stockés dans les fichiers :
+## 🌍 Langues supportées
 
-- `data/inputs/font-size.txt` : Taille de police (ex: 1.4)
-- `data/inputs/channel-name.txt` : Nom de votre chaîne Twitch
+Sélectionnez la langue cible pour la synthèse vocale. Les langues disponibles dépendent de votre système TTS.
 
-## 💬 Chat Twitch
+## 📦 Export
 
-### Configuration
+Après traitement, un fichier ZIP est généré contenant :
 
-1. Accédez à `http://localhost:3000/chat`
-2. Le chat affichera les 20 derniers messages en temps réel
+- `cards.csv` : Fichier à importer dans Anki
+- `medias/` : Dossier contenant tous les fichiers audio MP3
+- `README.txt` : Instructions d'importation
 
-### Fonctionnalités
+### Importation dans Anki
 
-- **Messages en temps réel** : Connexion directe à Twitch via TMI.js
-- **Limitation** : Stockage des 20 derniers messages uniquement
-- **Alertes** : Système d'alertes intégré via WebSocket
-
-## 🎛️ Page de commandes
-
-### Accès
-
-- **URL** : `http://localhost:3000/commands`
-- **Usage** : Contrôle rapide des overlays depuis OBS
-
-### Fonctionnalités
-
-- **Boutons d'action** : Démarrage/arrêt des overlays
-- **Interface simplifiée** : Optimisée pour l'intégration OBS
-- **Popup d'édition** : Ouverture d'onglets pour modifier les inputs
-- **Paramètres globaux** : Configuration de la taille de police et du nom de chaîne Twitch
-- **Sélecteur d'overlay** : Choix entre Alpha, Tango et Charlie pour chaque action
-
-## 🎯 Sélecteur d'overlays
-
-### Fonctionnement
-
-Le système propose un **sélecteur d'overlays** qui permet de choisir entre 3 overlays distincts :
-
-- **Alpha** : Overlay par défaut
-- **Tango** : Overlay secondaire
-- **Charlie** : Overlay tertiary
-
-### Utilisation
-
-#### Dans la preview
-
-- Le sélecteur est disponible dans la zone de preview de la page principale
-- Permet de tester les overlays en temps réel
-- Changement instantané de l'overlay affiché
-
-#### Dans les actions
-
-- Chaque action dispose de son propre sélecteur d'overlay
-- Permet de spécifier quel overlay utiliser pour chaque action
-- Les actions sont exécutées sur l'overlay sélectionné
-
-### URLs des overlays
-
-- **Alpha** : `http://localhost:3000/alpha`
-- **Tango** : `http://localhost:3000/tango`
-- **Charlie** : `http://localhost:3000/charlie`
-
-## 🎮 Intégration OBS
-
-### Overlays disponibles
-
-Le système propose maintenant **3 overlays distincts** avec leurs propres URLs :
-
-- **Alpha** : `http://localhost:3000/alpha`
-- **Tango** : `http://localhost:3000/tango`
-- **Charlie** : `http://localhost:3000/charlie`
-
-### Configuration OBS
-
-1. Ajoutez une source "Navigateur Web"
-2. Choisissez l'URL de l'overlay souhaité :
-   - Alpha : `http://localhost:3000/alpha`
-   - Tango : `http://localhost:3000/tango`
-   - Charlie : `http://localhost:3000/charlie`
-3. Résolution : 1920x1080 (recommandé)
-4. FPS : 30
-
-### Page de commandes (optionnelle)
-
-Pour contrôler les overlays depuis OBS :
-
-1. Ajoutez une source "Navigateur Web"
-2. URL : `http://localhost:3000/commands`
-3. Résolution : 800x600 (recommandé)
-4. FPS : 30
-
-### Chat Twitch
-
-Pour afficher le chat Twitch :
-
-1. Ajoutez une source "Navigateur Web"
-2. URL : `http://localhost:3000/chat?channel=VOTRE_CHANNEL`
-3. Résolution : 400x600 (recommandé)
-4. FPS : 30
+1. Ouvrez Anki
+2. Fichier > Importer
+3. Sélectionnez le fichier `cards.csv` du ZIP
+4. Choisissez votre paquet
+5. Importez
 
 ## 🏗️ Architecture
 
 - **Backend** : Serveur Bun avec API REST et WebSocket
 - **Frontend** : Interface SPA avec router côté client
-- **Overlays** : Templates HTML avec scripts intégrés
-- **Communication** : WebSocket temps réel entre interface et overlay
+- **TTS** : Synthèse vocale pour générer les fichiers audio
+- **Communication** : WebSocket pour le suivi de progression en temps réel
 
 ## 🎨 Fonctionnalités
 
-- ✅ Gestion d'overlays en temps réel
-- ✅ Interface de contrôle intuitive
-- ✅ Filtrage par tags
-- ✅ Aperçu en direct
-- ✅ Animations CSS
-- ✅ Scripts JavaScript intégrés
-- ✅ Responsive design
-- ✅ Intégration OBS
-- ✅ Gestion d'inputs via fichiers texte
-- ✅ Chat Twitch intégré
-- ✅ Page de commandes dédiée
-- ✅ Système d'alertes
-- ✅ Sélecteur d'overlays (Alpha, Tango, Charlie)
-- ✅ URLs dédiées pour chaque overlay
+- ✅ Génération automatique de cartes Anki
+- ✅ Synthèse vocale (TTS) pour chaque carte
+- ✅ Cartes classiques
+- ✅ Textes à trous (cloze deletion)
+- ✅ Infos additionnelles au verso
+- ✅ Tags personnalisés
+- ✅ Export ZIP avec médias
+- ✅ Interface multilingue (FR, EN, KO)
+- ✅ Suivi de progression en temps réel
+- ✅ Glisser-déposer de fichiers CSV
+- ✅ Collage direct (Ctrl+V)
 
 ## 🔧 Développement
-
-Ce système est conçu pour être **simple et local**. Les métadonnées sont intégrées directement dans les fichiers HTML pour éviter la complexité d'un système d'éditeur externe.
 
 **Technologies utilisées :**
 
 - Bun (runtime JavaScript)
 - TypeScript
 - WebSocket
-- CSS Animations
-- SPA Router
+- TTS (Text-to-Speech)
+- Vanilla JavaScript/HTML/CSS
+
+## 📝 Notes
+
+- Les fichiers CSV sont traités temporairement et supprimés après génération
+- Les fichiers audio sont générés à la volée et inclus dans le ZIP
+- Aucune donnée n'est stockée de manière permanente
+- Ne partagez pas d'informations sensibles
+
+## 👤 Auteur
+
+Benoist "Kazerlelutin" Bouteiller
+
+- Site : https://kazerlelutin.space
+- Contact : bento@ik.me
+- GitHub : https://github.com/kazerlelutin/AnkiSpeak
+
+## 💝 Soutien
+
+Si vous aimez AnkiSpeak, vous pouvez soutenir le projet :
+
+- [Offrir un café](https://ko-fi.com/kazerlelutin)

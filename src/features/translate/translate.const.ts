@@ -45,9 +45,9 @@ export const UI: UiTranslation = {
     "ko": "CSV 파일을 여기로 끌어다 놓거나 클릭하여 불러오세요, 또는 Ctrl+V로 붙여넣기"
   },
   "csv-format": {
-    "fr": "Format CSV : langue source, langue cible, tags. Séparateur : , ou ;",
-    "en": "CSV format: source language, target language, tags. Separator: , or ;",
-    "ko": "CSV 형식: 소스 언어, 대상 언어, 태그. 구분자: , 또는 ;"
+    "fr": "Format CSV : langue source, langue cible, tags, infos additionnelles. Séparateur : , ou ;",
+    "en": "CSV format: source language, target language, tags, additional info. Separator: , or ;",
+    "ko": "CSV 형식: 소스 언어, 대상 언어, 태그, 추가 정보. 구분자: , 또는 ;"
   },
   "anki-link": {
     "fr": "Site officiel d'Anki",
