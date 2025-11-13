@@ -27,15 +27,67 @@ export const server = serve({
       GET: downloadFile,
     },
     "/*": index,
-    "/public/*": (req: BunRequest) => {
+    "/public/*": async (req: BunRequest) => {
       const url = new URL(req.url);
       const path = url.pathname.replace("/public", "./public");
       const file = Bun.file(path);
+      const exists = await file.exists();
 
-      if (file.name?.includes('.ico')) {
-        return new Response(file.stream(), { headers: { "Content-Type": "image/x-icon" } });
+      if (!exists) {
+        return new Response("File not found", { status: 404 });
       }
-      return new Response(file.stream(), { headers: { "Content-Type": "text/html" } });
+
+      // Déterminer le Content-Type selon l'extension
+      const extension = path.split('.').pop()?.toLowerCase();
+      let contentType = "application/octet-stream";
+
+      switch (extension) {
+        case 'mjs':
+        case 'js':
+          contentType = "application/javascript";
+          break;
+        case 'css':
+          contentType = "text/css";
+          break;
+        case 'html':
+          contentType = "text/html";
+          break;
+        case 'ico':
+          contentType = "image/x-icon";
+          break;
+        case 'png':
+          contentType = "image/png";
+          break;
+        case 'jpg':
+        case 'jpeg':
+          contentType = "image/jpeg";
+          break;
+        case 'svg':
+          contentType = "image/svg+xml";
+          break;
+        case 'json':
+          contentType = "application/json";
+          break;
+        case 'woff':
+          contentType = "font/woff";
+          break;
+        case 'woff2':
+          contentType = "font/woff2";
+          break;
+        case 'ttf':
+          contentType = "font/ttf";
+          break;
+        case 'mp3':
+          contentType = "audio/mpeg";
+          break;
+      }
+
+      return new Response(file.stream(), {
+        headers: {
+          "Content-Type": contentType,
+          "Cache-Control": "public, max-age=31536000"
+        }
+      });
     },
   },
 
