@@ -31,6 +31,10 @@ export const server = serve({
       const url = new URL(req.url);
       const path = url.pathname.replace("/public", "./public");
       const file = Bun.file(path);
+
+      if (file.name?.includes('.ico')) {
+        return new Response(file.stream(), { headers: { "Content-Type": "image/x-icon" } });
+      }
       return new Response(file.stream(), { headers: { "Content-Type": "text/html" } });
     },
   },
