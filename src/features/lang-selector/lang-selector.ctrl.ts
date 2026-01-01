@@ -6,10 +6,7 @@ const langSelectorCtrl = {
   init() {
     const languageSelect = document.getElementById('language-select');
 
-    if (!languageSelect) {
-      return;
-    }
-
+    if (!languageSelect) return;
 
     const fragment = document.createDocumentFragment();
     LANG_SELECTOR_OPTIONS.forEach((option) => {

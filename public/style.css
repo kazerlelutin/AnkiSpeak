@@ -174,25 +174,25 @@
     pointer-events: none;
   }
 
-  input[type="checkbox"] {
+  input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    border-radius: 2px;
+    border-radius: 50%;
     width: var(--font-size-medium);
     height: var(--font-size-medium);
     border: 1px solid var(--color-pixel-39);
   }
 
-  input[type="checkbox"]:checked {
+  input[type="radio"]:checked {
     background-color: var(--color-pixel-41);
   }
 
-  input[type="checkbox"]:focus {
+  input[type="radio"]:focus {
     outline: none;
   }
 
-  input[type="checkbox"]:disabled {
+  input[type="radio"]:disabled {
     opacity: 0.5;
     filter: grayscale(100%);
     pointer-events: none;
@@ -447,7 +447,6 @@
     font-style: italic;
   }
 
-  
   .max-w-md {
     max-width: 400px;
   }
@@ -536,8 +535,6 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
-
-
 
 }
 
